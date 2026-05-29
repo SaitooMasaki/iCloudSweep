@@ -1,0 +1,445 @@
+/* ─── iCloudSweep floating panel ──────────────────────────────────────────── */
+
+#is-panel {
+  all: initial;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 310px;
+  background: #1c1c1e;
+  border: 1px solid #3a3a3c;
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65);
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #f2f2f7;
+  user-select: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+#is-panel * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+#is-panel .is-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 13px;
+  background: #2c2c2e;
+  border-bottom: 1px solid #3a3a3c;
+  cursor: default;
+}
+
+#is-panel .is-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #007AFF;
+  letter-spacing: 0.2px;
+}
+
+#is-panel .is-icon {
+  width: 17px;
+  height: 17px;
+  stroke: #007AFF;
+  flex-shrink: 0;
+}
+
+#is-panel .is-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#is-panel .is-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+#is-panel .is-badge-free {
+  background: #3a3a3c;
+  color: #8e8e93;
+}
+
+#is-panel .is-badge-pro {
+  background: #007AFF;
+  color: #fff;
+}
+
+#is-panel .is-icon-btn {
+  background: none;
+  border: none;
+  color: #8e8e93;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+
+#is-panel .is-icon-btn:hover {
+  background: #3a3a3c;
+  color: #f2f2f7;
+}
+
+/* ─── Body ───────────────────────────────────────────────────────────────── */
+
+#is-panel #is-body {
+  padding: 0 13px 13px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+#is-panel #is-body::-webkit-scrollbar { width: 4px; }
+#is-panel #is-body::-webkit-scrollbar-track { background: transparent; }
+#is-panel #is-body::-webkit-scrollbar-thumb { background: #3a3a3c; border-radius: 2px; }
+
+#is-panel .is-section {
+  margin-top: 12px;
+}
+
+#is-panel .is-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8e8e93;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+#is-panel .is-muted {
+  font-size: 11px;
+  color: #8e8e93;
+}
+
+/* ─── Notice ─────────────────────────────────────────────────────────────── */
+
+#is-panel .is-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  background: #1a2a3a;
+  border: 1px solid #1d4a7a;
+  border-radius: 9px;
+  padding: 9px 10px;
+}
+
+#is-panel .is-notice-icon {
+  width: 14px;
+  height: 14px;
+  stroke: #007AFF;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+#is-panel .is-notice-text {
+  font-size: 11.5px;
+  color: #9ec5f0;
+  line-height: 1.5;
+}
+
+#is-panel .is-notice-text strong {
+  color: #60aaee;
+}
+
+/* ─── Error box ──────────────────────────────────────────────────────────── */
+
+#is-panel .is-error-box {
+  margin-top: 12px;
+  background: #2a1a1a;
+  border: 1px solid #5a2020;
+  border-radius: 9px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #ff9a9a;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ─── Status & progress ──────────────────────────────────────────────────── */
+
+#is-panel .is-status-text {
+  font-size: 12px;
+  color: #aeaeb2;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  min-height: 17px;
+  word-break: break-word;
+}
+
+#is-panel .is-progress-track {
+  height: 5px;
+  background: #2c2c2e;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+#is-panel .is-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #007AFF, #34aadc);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+#is-panel .is-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #8e8e93;
+}
+
+#is-panel .is-progress-meta strong {
+  color: #f2f2f7;
+}
+
+/* ─── Limit CTA ──────────────────────────────────────────────────────────── */
+
+#is-panel .is-limit-cta {
+  background: #1a1a2a;
+  border: 1px solid #30307a;
+  border-radius: 9px;
+  padding: 10px 12px;
+}
+
+#is-panel .is-limit-text {
+  font-size: 12px;
+  color: #9090c0;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+#is-panel .is-upgrade-btn {
+  display: block;
+  text-align: center;
+  background: #007AFF;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+#is-panel .is-upgrade-btn:hover {
+  background: #0051D0;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* ─── Skip Favorites toggle ──────────────────────────────────────────────── */
+
+#is-panel .is-option-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: #2c2c2e;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+}
+
+#is-panel .is-option-row:hover {
+  background: #3a3a3c;
+}
+
+#is-panel .is-option-text {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: #f2f2f7;
+  font-weight: 500;
+}
+
+#is-panel .is-heart {
+  width: 14px;
+  height: 14px;
+  stroke: #ff375f;
+  flex-shrink: 0;
+}
+
+/* iOS-style toggle switch */
+#is-panel .is-toggle {
+  position: relative;
+  flex-shrink: 0;
+}
+
+#is-panel .is-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+#is-panel .is-toggle-track {
+  display: flex;
+  align-items: center;
+  width: 38px;
+  height: 22px;
+  background: #48484a;
+  border-radius: 11px;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+}
+
+#is-panel .is-toggle-input:checked + .is-toggle-track {
+  background: #34c759;
+}
+
+#is-panel .is-toggle-thumb {
+  position: absolute;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  transition: transform 0.2s;
+}
+
+#is-panel .is-toggle-input:checked + .is-toggle-track .is-toggle-thumb {
+  transform: translateX(16px);
+}
+
+#is-panel .is-toggle-input:disabled + .is-toggle-track {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Action buttons ─────────────────────────────────────────────────────── */
+
+#is-panel .is-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+#is-panel .is-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  outline: none;
+  white-space: nowrap;
+}
+
+#is-panel .is-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#is-panel .is-btn-primary {
+  background: #007AFF;
+  color: #fff;
+}
+
+#is-panel .is-btn-primary:hover:not(:disabled) {
+  background: #0051D0;
+}
+
+#is-panel .is-btn-secondary {
+  background: #3a3a3c;
+  color: #f2f2f7;
+}
+
+#is-panel .is-btn-secondary:hover:not(:disabled) {
+  background: #48484a;
+}
+
+#is-panel .is-btn-danger {
+  background: #3a1a1a;
+  color: #ff6b6b;
+}
+
+#is-panel .is-btn-danger:hover:not(:disabled) {
+  background: #5a2020;
+}
+
+#is-panel .is-btn-accent {
+  background: #2c2c2e;
+  border: 1px solid #007AFF;
+  color: #007AFF;
+  flex: 0 0 auto;
+}
+
+#is-panel .is-btn-accent:hover:not(:disabled) {
+  background: #1a2a3a;
+}
+
+#is-panel .is-btn-xs {
+  font-size: 11px;
+  padding: 5px 9px;
+  flex: 0 0 auto;
+}
+
+/* ─── License area ───────────────────────────────────────────────────────── */
+
+#is-panel .is-license-area {
+  border-top: 1px solid #2c2c2e;
+  padding-top: 12px;
+}
+
+#is-panel .is-license-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+#is-panel .is-input {
+  background: #2c2c2e;
+  border: 1px solid #3a3a3c;
+  border-radius: 7px;
+  color: #f2f2f7;
+  font-size: 12px;
+  padding: 6px 9px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+#is-panel .is-input:focus {
+  border-color: #007AFF;
+}
+
+#is-panel .is-license-input {
+  font-family: 'SF Mono', 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+#is-panel .is-license-msg {
+  font-size: 11px;
+  margin-top: 5px;
+  min-height: 14px;
+  line-height: 1.4;
+}
+
+#is-panel .is-license-msg-success { color: #34c759; }
+#is-panel .is-license-msg-error   { color: #ff453a; }

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iCloudSweep</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 270px;
+      background: #1c1c1e;
+      color: #f2f2f7;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: #2c2c2e;
+      border-bottom: 1px solid #3a3a3c;
+    }
+
+    .popup-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: #007AFF;
+    }
+
+    .badge {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-free { background: #3a3a3c; color: #8e8e93; }
+    .badge-pro  { background: #007AFF; color: #fff; }
+
+    .popup-body { padding: 14px; }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: #2c2c2e;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .row-label { color: #8e8e93; font-size: 12px; }
+    .row-value { font-weight: 600; color: #f2f2f7; }
+    .row-value.running { color: #34c759; }
+
+    .divider {
+      height: 1px;
+      background: #3a3a3c;
+      margin: 12px 0;
+    }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #8e8e93;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .license-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: #2c2c2e;
+      border: 1px solid #3a3a3c;
+      border-radius: 7px;
+      color: #f2f2f7;
+      font-size: 11px;
+      padding: 6px 8px;
+      outline: none;
+      font-family: 'SF Mono', 'Courier New', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"]:focus { border-color: #007AFF; }
+
+    button {
+      background: #007AFF;
+      border: none;
+      border-radius: 7px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    button:hover { background: #0051D0; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #license-msg {
+      font-size: 11px;
+      margin-top: 5px;
+      min-height: 14px;
+    }
+
+    .msg-success { color: #34c759; }
+    .msg-error   { color: #ff453a; }
+
+    .open-icloud {
+      display: block;
+      text-align: center;
+      background: #2c2c2e;
+      border: 1px solid #007AFF;
+      border-radius: 8px;
+      color: #007AFF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 8px 12px;
+      margin-top: 4px;
+      transition: background 0.15s;
+    }
+
+    .open-icloud:hover {
+      background: #1a2a3a;
+      text-decoration: none;
+    }
+
+    .buy-link {
+      display: block;
+      text-align: center;
+      background: #007AFF;
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      transition: background 0.15s;
+    }
+
+    .buy-link:hover { background: #0051D0; text-decoration: none; color: #fff; }
+
+    #pro-section { display: none; }
+
+    #deactivate-btn {
+      background: #3a3a3c;
+      color: #ff453a;
+      border: 1px solid #5a2020;
+      margin-top: 8px;
+      width: 100%;
+      font-size: 11px;
+    }
+
+    #deactivate-btn:hover { background: #5a2020; }
+  </style>
+</head>
+<body>
+  <div class="popup-header">
+    <span class="popup-title">iCloudSweep</span>
+    <span id="plan-badge" class="badge badge-free">FREE</span>
+  </div>
+
+  <div class="popup-body">
+    <div class="row">
+      <span class="row-label">Status</span>
+      <span id="status-val" class="row-value">–</span>
+    </div>
+    <div class="row" id="quota-row">
+      <span class="row-label">Lifetime deletions</span>
+      <span id="quota-val" class="row-value">0 / 100</span>
+    </div>
+    <div class="row">
+      <span class="row-label">♥ Skip Favorites</span>
+      <span id="skip-fav-val" class="row-value">–</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Free: license key + buy link -->
+    <div id="free-section">
+      <div class="field-label">License Key</div>
+      <div class="license-row">
+        <input type="text" id="license-input" placeholder="XXXX-XXXX-XXXX-XXXX"
+               autocomplete="off" spellcheck="false">
+        <button id="activate-btn">Activate</button>
+      </div>
+      <div id="license-msg"></div>
+      <a id="buy-link" href="#" target="_blank" rel="noopener" class="buy-link">
+        Upgrade to Pro — Unlimited
+      </a>
+    </div>
+
+    <!-- Pro: deactivate -->
+    <div id="pro-section">
+      <div class="row">
+        <span class="row-label">Plan</span>
+        <span class="row-value">Pro (Unlimited)</span>
+      </div>
+      <button id="deactivate-btn">Deactivate License</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <a href="https://www.icloud.com/photos/" target="_blank" class="open-icloud">
+      Open iCloud Photos to use iCloudSweep →
+    </a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
