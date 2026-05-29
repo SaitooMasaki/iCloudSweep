@@ -5,7 +5,7 @@
   "description": "Bulk delete your iCloud Photos. Free: 100 photos lifetime. Pro: unlimited.",
   "permissions": [
     "storage",
-    "tabs"
+    "activeTab"
   ],
   "host_permissions": [
     "https://www.icloud.com/*",
